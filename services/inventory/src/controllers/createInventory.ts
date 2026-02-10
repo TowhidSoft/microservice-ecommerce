@@ -1,5 +1,5 @@
-import prisma from "@/prisma";
-import { InventoryCreateDTOSchema } from "@/schema";
+import prisma from "../prisma";
+import { InventoryCreateDTOSchema } from "../schema";
 import { Request, Response, NextFunction } from "express";
 
 const createInventory = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,10 +26,12 @@ const createInventory = async (req: Request, res: Response, next: NextFunction) 
                 id: true,
                 quantity: true
             }
-        })
-
+        });
         return res.status(201).json(inventory);
+
     } catch (error) {
         next(error);
     }
 }
+
+export default createInventory;

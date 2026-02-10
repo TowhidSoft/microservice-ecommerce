@@ -1,0 +1,64 @@
+import prisma from "../prisma";
+import { InventoryUpdateDTOSchema } from "@/schema";
+import { Request, Response, NextFunction } from "express";
+
+
+const updateInventory = async(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+        const inventory = await prisma.inventory.findUnique({
+            where: { id }
+        });
+
+        if (!inventory) {
+            return res.status(404).json({ error: 'Inventory not found' });
+        }
+
+        // update the inventory
+        const parsedBody = InventoryUpdateDTOSchema.safeParse(req.body);
+        if (!parsedBody.success) {
+            return res.status(400).json({ error: parsedBody.error })
+        }
+
+        // find the last history
+        const lastHistory = await prisma.history.findFirst({
+            where: { inventoryId: id },
+        })
+
+        //calculate new quantity
+        let newQuantity = inventory.quantity;
+        if(parsedBody.data.actionType === 'IN'){
+            newQuantity += parsedBody.data.quantity;
+        }else {
+            newQuantity -= parsedBody.data.quantity;
+        }
+
+        // Update Inventory
+        const updateInventory = await prisma.inventory.update({
+            where: { id },
+            data: {
+                quantity: newQuantity,
+                histories: {
+                    create: {
+                        actionType: parsedBody.data.actionType,
+                        quantityChanged: parsedBody.data.quantity,
+                        lastQuantity: lastHistory?.newQuantity || 0,
+                        newQuantity
+                    }
+                }
+            },
+            select: {
+                id: true,
+                quantity: true
+            }
+        });
+        return res.status(200).json(updateInventory);
+
+    } catch (error) {
+        next(error);
+    }
+}

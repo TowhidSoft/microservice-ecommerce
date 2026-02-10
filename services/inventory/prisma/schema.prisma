@@ -30,11 +30,12 @@ enum ActionType {
 }
 
 model History {
-  id             String     @id @default(cuid())
-  actionType     ActionType
+  id              String     @id @default(cuid())
+  actionType      ActionType
   quantityChanged Int
-  lastQuantity   Int
-  newQuantity    Int
-  inventory      Inventory  @relation(fields: [inventoryId], references: [id])
-  inventoryId    String
+  lastQuantity    Int
+  newQuantity     Int
+  inventory       Inventory  @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  inventoryId     String
+  createdAt       DateTime   @default(now())
 }
