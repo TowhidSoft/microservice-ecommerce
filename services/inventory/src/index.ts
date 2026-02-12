@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan'
-import { createInventory } from './controllers';
+import { createInventory, getInventoryDetails, updateInventory } from './controllers';
 
 dotenv.config();
 
@@ -17,6 +17,9 @@ app.get('/health', (_req, res) => {
 })
 
 // routes
+app.get('/inventories/:id/details', getInventoryDetails );
+app.get('/inventories/:id', getInventoryDetails );
+app.put('/inventories/:id', updateInventory);
 app.post('/inventories', createInventory);
 
 // Error handler
