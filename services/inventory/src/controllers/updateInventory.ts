@@ -1,5 +1,5 @@
 import prisma from "../prisma";
-import { InventoryUpdateDTOSchema } from "@/schema";
+import { InventoryUpdateDTOSchema } from "../schema";
 import { Request, Response, NextFunction } from "express";
 
 const updateInventory = async (
@@ -26,7 +26,7 @@ const updateInventory = async (
     // find the last history
     const lastHistory = await prisma.history.findFirst({
       where: { inventoryId: id },
-      orderBy: { createdBy: "desc" },
+      orderBy: { createdAt: "desc" },
     });
 
     //calculate new quantity
