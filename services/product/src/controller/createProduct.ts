@@ -41,6 +41,11 @@ const createProduct = async (
         productId: product.id,
         sku: product.sku,
       },
+      {
+        headers: {
+          origin: "http://localhost:8081",
+        },
+      }
     );
 
     console.log("Inventory created successfully", inventory.id);

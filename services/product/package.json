@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only ./src/index.ts",
     "build": "tsc && tsc-alias",
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy"
@@ -30,6 +30,7 @@
     "ts-node-dev": "^2.0.0",
     "tsc": "^2.0.4",
     "tsc-alias": "^1.8.16",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.3"
   }
 }

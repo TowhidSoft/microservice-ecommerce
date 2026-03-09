@@ -16,7 +16,7 @@ app.use(helmet());
 // Rate limiting middleware
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 50,
     handler: (req, res) => {
         res.status(429).json({message: "Too many requests, please try again later."})
     }
@@ -32,8 +32,17 @@ app.use(express.json())
 
 configureRoutes(app)
 
+// health check
+app.get('/health', (_req, res) => {
+    res.json({message: 'API Gateway is running'})
+})
 
-// 404 handler
+//404 handler
+app.use((_req, res) => {
+    res.status(404).json({message: 'Not Found'})
+})
+
+// error handler
 app.use((err,_req, res, next) => {
     console.error(err.stack);
     res.status(500).json({message: 'Internal Server Error'})
@@ -44,7 +53,3 @@ app.listen(PORT, () => {
     console.log(`API Gateway is running on port ${PORT}`);
 })
 
-// health check
-app.get('/health', (_req, res) => {
-    res.json({message: 'API Gateway is running'})
-})

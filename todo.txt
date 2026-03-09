@@ -1,9 +1,15 @@
-Part 2 is continue: 
+Day 2 is continue: 
  total duration 03 hours 19 minutes 57 seconds
- start next from 02 hours 36 minutes 00 seconds
+ start next from 03 hours 19 minutes 57 seconds [DONE]
 
-part2 link: https://www.youtube.com/watch?v=rmW6T72_RAU&list=PL_XxuZqN0xVAO0uVm0ClJ3wsKHJw6G_TL&index=2&t=1176s
+Day 2 link: https://www.youtube.com/watch?v=rmW6T72_RAU&list=PL_XxuZqN0xVAO0uVm0ClJ3wsKHJw6G_TL&index=2&t=1176s
 
+====================================================================
 
+Day 3.1 is continue: 
+ total duration 02 hours 42 minutes 13 seconds
+ start next from 00 hours 00 minutes 00 seconds
+
+Day 3.1 link:https://www.youtube.com/watch?v=T2M4mVdEXsw&list=PL_XxuZqN0xVAO0uVm0ClJ3wsKHJw6G_TL&index=3
 
  

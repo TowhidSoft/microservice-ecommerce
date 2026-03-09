@@ -21,9 +21,9 @@ const getProducts = async (
         // Implement pagination
         // Implement filtering
 
-        return res.json({data: products})
+        return res.json({message: "Products fetched successfully", total: products.length, data: products})
     } catch (err) {
-        
+        next(err)
     }
 }
 export default getProducts;

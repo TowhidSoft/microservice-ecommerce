@@ -25,6 +25,11 @@ const getProductDetails = async (
                 {
                     productId: product.id,
                     sku: product.sku
+                },
+                {
+                    headers: {
+                        origin: "http://localhost:8081"
+                    }
                 }
             );
             console.log(`Inventory created successfully`, inventory.id);
@@ -49,7 +54,12 @@ const getProductDetails = async (
 
         // fetch inventory
         const {data:inventory} = await axios.get(
-            `${INVENTORY_URL}/inventories/${product.inventoryId}`
+            `${INVENTORY_URL}/inventories/${product.inventoryId}`,
+            {
+                headers: {
+                    origin: "http://localhost:8081"
+                }
+            }
         );
         return res.status(200).json({
             ...product,
