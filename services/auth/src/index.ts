@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan'
+import { userLogin, userRegistration, verifyEmail, verifyToken } from './controller';
 
 dotenv.config();
 
@@ -28,19 +29,21 @@ app.get('/health', (_req, res) => {
 // })
 
 // routes
-
-
+app.post('/auth/register', userRegistration);
+app.post('/auth/login', userLogin);
+app.post('/auth/verify-token', verifyToken);
+app.post('/auth/verify-email', verifyEmail);
 
 // 404 handler
 app.use((_req, res) => {
-    res.status(404).json({message: 'Route not found'})
+    res.status(404).json({ message: 'Route not found' })
 })
 
 
 // Error handler
 app.use((err, _req, res, _next) => {
     console.error(err.stack);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', error: err.message });
 })
 
 const port = process.env.PORT || 4003;

@@ -10,14 +10,14 @@ const createInventory = async (req: Request, res: Response, next: NextFunction) 
 
         let user: User | null = null;
 
-        if(field === 'authUserId'){
-            user = await prisma.user.findUnique({where: {authUserId:id}})
+        if (field === 'authUserId') {
+            user = await prisma.user.findUnique({ where: { authUserId: id } })
         } else {
-            user = await prisma.user.findUnique({where: {id}})
+            user = await prisma.user.findUnique({ where: { id } })
         }
 
-        if(!user) {
-            return res.status(404).json({message: 'User not found'})
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' })
         }
         return res.json(user);
 

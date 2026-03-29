@@ -18,7 +18,7 @@ const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 50,
     handler: (req, res) => {
-        res.status(429).json({message: "Too many requests, please try again later."})
+        res.status(429).json({ message: "Too many requests, please try again later." })
     }
 })
 app.use('/api', limiter)
@@ -34,18 +34,18 @@ configureRoutes(app)
 
 // health check
 app.get('/health', (_req, res) => {
-    res.json({message: 'API Gateway is running'})
+    res.json({ message: 'API Gateway is running' })
 })
 
 //404 handler
 app.use((_req, res) => {
-    res.status(404).json({message: 'Not Found'})
+    res.status(404).json({ message: 'Not Found' })
 })
 
 // error handler
-app.use((err,_req, res, next) => {
+app.use((err, _req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({message: 'Internal Server Error'})
+    res.status(500).json({ message: 'Internal Server Error', error: err.message })
 })
 
 const PORT = process.env.PORT || 8081;
